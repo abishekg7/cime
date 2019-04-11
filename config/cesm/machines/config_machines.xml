@@ -2344,6 +2344,74 @@ This allows using a different mpirun command to launch unit tests
     </module_system>
   </machine>
 
+  <machine MACH="ada">
+    <DESC>TAMU IBM NextScale Cluster, os is Linux, 20 pes/node, batch system is LSF</DESC>
+    <NODENAME_REGEX>.*.ada.tamu.edu</NODENAME_REGEX>
+    <OS>LINUX</OS>
+    <COMPILERS>intel,gnu,pgi</COMPILERS>
+    <MPILIBS compiler="intel" >impi,mpt,openmpi</MPILIBS>
+    <MPILIBS compiler="pgi" >mpt</MPILIBS>
+    <MPILIBS compiler="gnu" >openmpi</MPILIBS>
+    <CIME_OUTPUT_ROOT>/scratch/user/$USER/RCESM/RegionalCESM-2.0.0</CIME_OUTPUT_ROOT>
+    <DIN_LOC_ROOT>$CIME_OUTPUT_ROOT/inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>>$CIME_OUTPUT_ROOT/inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
+    <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
+    <BASELINE_ROOT>>$CIME_OUTPUT_ROOT/inputdata/cesm_baselines</BASELINE_ROOT>
+    <CCSM_CPRNC>>$CIME_OUTPUT_ROOT/zhi_rcesm_sandbox/cime/tools/cprnc</CCSM_CPRNC>
+    <GMAKE_J>4</GMAKE_J>
+    <BATCH_SYSTEM>lsf</BATCH_SYSTEM>
+    <SUPPORTED_BY>ada</SUPPORTED_BY>
+    <!-- have not seen any performance benefit in smt -->
+    <MAX_TASKS_PER_NODE>20</MAX_TASKS_PER_NODE>
+    <MAX_MPITASKS_PER_NODE>20</MAX_MPITASKS_PER_NODE>
+    <PROJECT_REQUIRED>FALSE</PROJECT_REQUIRED>
+    <mpirun mpilib="default">
+      <executable>mpiexec.hydra</executable>
+      <arguments>
+        <arg name="anum_tasks"> -np $TOTALPES</arg>
+      </arguments>
+    </mpirun>
+    <mpirun mpilib="openmpi">
+      <executable>mpirun</executable>
+      <arguments>
+        <arg name="anum_tasks"> -np $TOTALPES</arg>
+      </arguments>
+    </mpirun>
+    <module_system type="module">
+      <init_path lang="perl">/software/lmod/lmod/init/perl</init_path>
+      <init_path lang="python">/software/lmod/lmod/init/env_modules_python.py</init_path>
+      <init_path lang="csh">/software/lmod/lmod/init/csh</init_path>
+      <init_path lang="sh">/software/lmod/lmod/init/sh</init_path>
+      <cmd_path lang="perl">/software/lmod/lmod/libexec/lmod perl</cmd_path>
+      <cmd_path lang="python">/software/lmod/lmod/libexec/lmod python</cmd_path>
+      <cmd_path lang="sh">module</cmd_path>
+      <cmd_path lang="csh">module</cmd_path>
+      <modules>
+        <command name="purge"/>
+        <command name="load">python/2.7.10-intel-2015B</command>
+      </modules>
+      <modules compiler="intel">
+        <command name="load">cesm-deps/intel-2015B-pn181</command>
+      </modules>
+    </module_system>
+    <environment_variables>
+      <env name="OMP_STACKSIZE">256M</env>
+      <env name="MPI_TYPE_DEPTH">16</env>
+      <env name="I_MPI_HYDRA_BOOTSTRAP">lsf</env>
+      <env name="I_MPI_HYDRA_BRANCH_COUNT">-1</env>
+      <env name="I_MPI_LSF_USE_COLLECTIVE_LAUNCH">1</env>
+    </environment_variables>
+     <environment_variables>
+      <env name="NETCDF_PATH">/software/tamusc/netCDF/4.3.3.1-intel-2015B</env>
+      <env name="PNETCDF_PATH">/software/tamusc/pnetcdf/1.8.1-intel-2015B</env>
+    </environment_variables>
+    <resource_limits>
+      <resource name="RLIMIT_CORE">-1</resource>
+      <resource name="RLIMIT_DATA">-1</resource>
+      <resource name="RLIMIT_STACK">-1</resource>
+    </resource_limits>
+  </machine>
+
   <default_run_suffix>
     <default_run_exe>${EXEROOT}/cesm.exe </default_run_exe>
     <default_run_misc_suffix> >> cesm.log.$LID 2>&amp;1 </default_run_misc_suffix>

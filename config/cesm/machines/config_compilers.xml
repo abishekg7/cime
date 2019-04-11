@@ -1160,6 +1160,33 @@ using a fortran linker.
   </SLIBS>
 </compiler>
 
+<compiler MACH="ada" COMPILER="intel">
+  <CPPDEFS>
+    <append> -DHAVE_NANOTIME -DNO_R16 </append>
+  </CPPDEFS>
+  <CFLAGS>
+    <append></append>
+  </CFLAGS>
+  <FFLAGS>
+    <append></append>
+  </FFLAGS>
+  <MPIFC>mpiifort</MPIFC>
+  <MPICC>mpiicc</MPICC>
+  <MPICXX>mpiicpc</MPICXX>
+  <SFC>ifort</SFC>
+  <SCC>icc</SCC>
+  <SCXX>icpc</SCXX>
+  <NETCDF_PATH>/software/tamusc/netCDF/4.3.3.1-intel-2015B</NETCDF_PATH>
+  <PNETCDF_PATH>/software/tamusc/pnetcdf/1.8.1-intel-2015B</PNETCDF_PATH>
+  <SLIBS>
+    <append>-L${NETCDF_PATH}/lib -lnetcdf -lnetcdff</append>
+    <append>-L${PNETCDF_PATH}/lib -lpnetcdf</append>
+  </SLIBS>
+  <PIO_FILESYSTEM_HINTS>gpfs</PIO_FILESYSTEM_HINTS>
+  <!-- Bug in the intel/17.0.1 compiler requires this, remove this line when compiler is updated -->
+  <HAS_F2008_CONTIGUOUS>FALSE</HAS_F2008_CONTIGUOUS>
+</compiler>
+
 <compiler MACH="userdefined">
   <CONFIG_ARGS>
     <base/>

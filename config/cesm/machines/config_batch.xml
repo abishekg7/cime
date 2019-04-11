@@ -113,6 +113,7 @@
     <directives>
       <directive                       > -J {{ job_id }} </directive>
       <directive                       > -n {{ total_tasks }} </directive>
+      <directive                       > -R "span[ptile={{ tasks_per_node }}]"</directive>
       <directive                       > -W $JOB_WALLCLOCK_TIME </directive>
       <directive default="cesm.stdout" > -o {{ job_id }}.%J  </directive>
       <directive default="cesm.stderr" > -e {{ job_id }}.%J  </directive>
@@ -505,6 +506,20 @@
   <batch_system MACH="theta" type="cobalt_theta">
     <queues>
       <queue walltimemax="00:60:00" nodemin="1" nodemax="50" default="true">default</queue>
+    </queues>
+  </batch_system>
+
+  <batch_system MACH="ada" type="lsf">
+    <queues>
+      <queue walltimemax="168:00" nodemin="101" nodemax="811">special</queue>
+      <queue walltimemax="120:00" nodemin="31" nodemax="100">mn_large</queue>
+      <queue walltimemax="168:00" nodemin="7" nodemax="30">mn_medium</queue>
+      <queue walltimemax="240:00" nodemin="1" nodemax="6">mn_small</queue>
+      <queue walltimemax="01:00" nodemin="1" nodemax="10" default="true">mn_short</queue>
+      <queue walltimemax="168:00" nodemin="1" nodemax="1">sn_xlong</queue>
+      <queue walltimemax="96:00" nodemin="1" nodemax="1">sn_long</queue>
+      <queue walltimemax="24:00" nodemin="1" nodemax="1">sn_regular</queue>
+      <queue walltimemax="01:00" nodemin="1" nodemax="1">sn_short</queue>
     </queues>
   </batch_system>
 

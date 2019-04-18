@@ -2404,6 +2404,8 @@ This allows using a different mpirun command to launch unit tests
      <environment_variables>
       <env name="NETCDF_PATH">/software/tamusc/netCDF/4.3.3.1-intel-2015B</env>
       <env name="PNETCDF_PATH">/software/tamusc/pnetcdf/1.8.1-intel-2015B</env>
+      <!-- add INCDIR for use in roms make, because, circa 2019 April, $NC_CONFIG returns value in incorrect format -->
+      <env name="NETCDF_INCDIR">/software/tamusc/netCDF/4.3.3.1-intel-2015B/include</env>
     </environment_variables>
     <resource_limits>
       <resource name="RLIMIT_CORE">-1</resource>

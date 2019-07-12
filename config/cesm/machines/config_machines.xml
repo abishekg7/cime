@@ -2351,9 +2351,9 @@ This allows using a different mpirun command to launch unit tests
     <MPILIBS compiler="intel" >impi,mpt,openmpi</MPILIBS>
     <MPILIBS compiler="pgi" >mpt</MPILIBS>
     <MPILIBS compiler="gnu" >openmpi</MPILIBS>
-    <CIME_OUTPUT_ROOT>/scratch/user/$USER/RCESM/RegionalCESM-2.0.0</CIME_OUTPUT_ROOT>
-    <DIN_LOC_ROOT>$CIME_OUTPUT_ROOT/inputdata</DIN_LOC_ROOT>
-    <DIN_LOC_ROOT_CLMFORC>>$CIME_OUTPUT_ROOT/inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
+    <CIME_OUTPUT_ROOT>/scratch/user/$USER/RCESM/RCESMrun</CIME_OUTPUT_ROOT>
+    <DIN_LOC_ROOT>$CIME_OUTPUT_ROOT/../inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>>$CIME_OUTPUT_ROOT/../inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
     <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
     <BASELINE_ROOT>>$CIME_OUTPUT_ROOT/inputdata/cesm_baselines</BASELINE_ROOT>
     <CCSM_CPRNC>>$CIME_OUTPUT_ROOT/zhi_rcesm_sandbox/cime/tools/cprnc</CCSM_CPRNC>

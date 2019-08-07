@@ -150,7 +150,6 @@ module shr_strdata_mod
                               gsmap,ggrid,nxg,nyg,calendar)
 
   implicit none
-
   type(shr_strdata_type),intent(inout) :: SDAT
   integer(IN)           ,intent(in)    :: mpicom
   integer(IN)           ,intent(in)    :: compid

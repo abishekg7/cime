@@ -129,7 +129,7 @@ contains
   subroutine seq_rest_read(rest_file, infodata, &
        atm, lnd, ice, ocn, rof, glc, wav, &
        fractions_ax, fractions_lx, fractions_ix, fractions_ox, &
-       fractions_rx, fractions_gx, fractions_wx)
+       fractions_rx, fractions_gx, fractions_wx, fractions_zx)
 
    implicit none
 
@@ -520,6 +520,5 @@ subroutine seq_rest_write(EClock_d, seq_SyncClock, infodata, &
    endif
 end subroutine seq_rest_write
 
-!===============================================================================
 
 end module seq_rest_mod

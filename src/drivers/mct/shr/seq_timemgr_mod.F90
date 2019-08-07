@@ -22,7 +22,6 @@
 ! !INTERFACE: ------------------------------------------------------------------
 
 module seq_timemgr_mod
-
 ! !USES:
    use ESMF
    use shr_cal_mod
@@ -217,7 +216,6 @@ module seq_timemgr_mod
 !===============================================================================
 
 contains
-
 !===============================================================================
 !===============================================================================
 ! !IROUTINE: seq_timemgr_clockInit -- Initializes clocks
@@ -258,7 +256,6 @@ subroutine seq_timemgr_clockInit(SyncClock, nmlfile, restart, restart_file, pioi
    type(ESMF_clock),target,intent(IN)    :: EClock_wav ! wav clock
    type(file_desc_t) :: pioid
 !EOP
-
     !----- local -----
     character(len=*), parameter :: subname = '(seq_timemgr_clockInit) '
     type(ESMF_Time) :: StartTime              ! Start time
@@ -285,6 +282,7 @@ subroutine seq_timemgr_clockInit(SyncClock, nmlfile, restart, restart_file, pioi
     character(SHR_KIND_CS)  :: restart_option        ! Restart option units
     integer(SHR_KIND_IN)    :: restart_n             ! Number until restart interval
     integer(SHR_KIND_IN)    :: restart_ymd           ! Restart date (YYYYMMDD)
+
     character(SHR_KIND_CS)  :: history_option        ! History option units
     integer(SHR_KIND_IN)    :: history_n             ! Number until history interval
     integer(SHR_KIND_IN)    :: history_ymd           ! History date (YYYYMMDD)
@@ -314,6 +312,7 @@ subroutine seq_timemgr_clockInit(SyncClock, nmlfile, restart, restart_file, pioi
     integer(SHR_KIND_IN)    :: glc_cpl_offset        ! Glc coupling interval
     integer(SHR_KIND_IN)    :: wav_cpl_offset        ! Wav coupling interval
     integer(SHR_KIND_IN)    :: rof_cpl_offset        ! Runoff coupling interval
+
     logical                 :: end_restart           ! Write restart at end of run
     integer(SHR_KIND_IN)    :: nlUnit                ! Namelist unit number
     integer(SHR_KIND_IN)    :: ierr                  ! Return code
@@ -365,6 +364,7 @@ subroutine seq_timemgr_clockInit(SyncClock, nmlfile, restart, restart_file, pioi
        restart_option   = seq_timemgr_optYearly
        restart_n        = -1
        restart_ymd      = -1
+
        history_option   = seq_timemgr_optNever
        history_n        = -1
        history_ymd      = -1
@@ -568,6 +568,7 @@ subroutine seq_timemgr_clockInit(SyncClock, nmlfile, restart, restart_file, pioi
     !---------------------------------------------------------------------------
     ! Broadcast namelist data
     !---------------------------------------------------------------------------
+
     call shr_mpi_bcast( calendar,       mpicom )
     call shr_mpi_bcast( stop_n,         mpicom )
     call shr_mpi_bcast( stop_option,    mpicom )
@@ -833,6 +834,7 @@ subroutine seq_timemgr_clockInit(SyncClock, nmlfile, restart, restart_file, pioi
        alarmname = trim(seq_timemgr_alarm_wavrun))
 
     ! --- this is the glcrun alarm (there ^) offset by a -dtime of the driver
+
     call ESMF_TimeIntervalSet( TimeStep, s=offset(seq_timemgr_nclock_glc), rc=rc )
     OffsetTime = CurrTime + TimeStep
     call ESMF_TimeIntervalSet( TimeStep, s=-offset(seq_timemgr_nclock_drv), rc=rc )

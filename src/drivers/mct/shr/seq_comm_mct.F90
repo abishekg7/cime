@@ -78,7 +78,6 @@ module seq_comm_mct
   integer, parameter, public :: num_inst_glc = NUM_COMP_INST_GLC
   integer, parameter, public :: num_inst_wav = NUM_COMP_INST_WAV
   integer, parameter, public :: num_inst_rof = NUM_COMP_INST_ROF
-
   integer, parameter, public :: num_inst_total= num_inst_atm + &
                                                 num_inst_lnd + &
                                                 num_inst_ocn + &
@@ -232,6 +231,7 @@ contains
          rof_ntasks, rof_rootpe, rof_pestride, rof_nthreads, &
          ocn_ntasks, ocn_rootpe, ocn_pestride, ocn_nthreads, &
          cpl_ntasks, cpl_rootpe, cpl_pestride, cpl_nthreads
+
     namelist /cime_pes/  &
          atm_ntasks, atm_rootpe, atm_pestride, atm_nthreads, atm_layout, &
          lnd_ntasks, lnd_rootpe, lnd_pestride, lnd_nthreads, lnd_layout, &
@@ -367,6 +367,7 @@ contains
     !--- checks for prognostic/present consistency in the driver
 
     error_state = .false.
+
     num_inst_min = num_inst_atm
     num_inst_min = min(num_inst_min, num_inst_lnd)
     num_inst_min = min(num_inst_min, num_inst_ocn)
@@ -381,7 +382,6 @@ contains
     num_inst_max = max(num_inst_max, num_inst_glc)
     num_inst_max = max(num_inst_max, num_inst_wav)
     num_inst_max = max(num_inst_max, num_inst_rof)
-
     if (num_inst_min /= num_inst_max .and. num_inst_min /= 1) error_state = .true.
     if (num_inst_atm /= num_inst_min .and. num_inst_atm /= num_inst_max) error_state = .true.
     if (num_inst_lnd /= num_inst_min .and. num_inst_lnd /= num_inst_max) error_state = .true.

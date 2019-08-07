@@ -50,6 +50,7 @@ module seq_flux_mct
   real(r8), allocatable ::  tbot (:)  ! atm bottom surface T
   real(r8), allocatable ::  sen  (:)  ! heat flux: sensible 
   real(r8), allocatable ::  lat  (:)  ! heat flux: latent   
+
   real(r8), allocatable ::  lwup (:)  ! lwup over ocean
   real(r8), allocatable ::  evap (:)  ! water flux: evaporation
   real(r8), allocatable ::  taux (:)  ! wind stress, zonal
@@ -383,6 +384,8 @@ contains
     if(ier/=0) call mct_die(subName,'allocate dens',ier)
     allocate(tbot(nloc_a2o),stat=ier)
     if(ier/=0) call mct_die(subName,'allocate tbot',ier)
+    allocate(pslv(nloc_a2o),stat=ier)
+    if(ier/=0) call mct_die(subName,'allocate pslv',ier)
     allocate(ustar(nloc_a2o),stat=ier)
     if(ier/=0) call mct_die(subName,'allocate ustar',ier)
     allocate(re(nloc_a2o), stat=ier)
@@ -716,7 +719,6 @@ contains
                           tocn , emask, sen , lat , lwup , &
                           evap , taux , tauy, tref, qref , &
                           duu10n,ustar, re  , ssq , missval = 0.0_r8 )
-
     !--- create temporary aVects on exchange, atm, or ocn decomp as needed
 
     fldlist = trim(seq_flds_xao_states)//":"//trim(seq_flds_xao_fluxes)//":sumwt"
@@ -911,6 +913,7 @@ contains
        index_a2x_Sa_u      = mct_aVect_indexRA(a2x,'Sa_u')
        index_a2x_Sa_v      = mct_aVect_indexRA(a2x,'Sa_v')
        index_a2x_Sa_tbot   = mct_aVect_indexRA(a2x,'Sa_tbot')
+       index_a2x_Sa_pslv   = mct_aVect_indexRA(a2x,'Sa_pslv')
        index_a2x_Sa_ptem   = mct_aVect_indexRA(a2x,'Sa_ptem')
        index_a2x_Sa_shum   = mct_aVect_indexRA(a2x,'Sa_shum')
        index_a2x_Sa_dens   = mct_aVect_indexRA(a2x,'Sa_dens')

@@ -124,6 +124,7 @@ module component_type_mod
 
   public :: atm, lnd, rof, ocn, ice, glc, wav
 
+
   !===============================================================================
 
 contains

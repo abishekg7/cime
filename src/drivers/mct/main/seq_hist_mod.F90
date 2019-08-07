@@ -14,7 +14,6 @@
 ! !INTERFACE: ------------------------------------------------------------------
 
 module seq_hist_mod
-
 ! !USES:
 
    use shr_kind_mod,      only: R8 => SHR_KIND_R8, IN => SHR_KIND_IN

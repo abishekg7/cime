@@ -303,6 +303,7 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
     character(SHR_KIND_CL) :: rof_gnam           ! rof grid
     character(SHR_KIND_CL) :: glc_gnam           ! glc grid
     character(SHR_KIND_CL) :: wav_gnam           ! wav grid
+    character(SHR_KIND_CL) :: iac_gnam           ! iac grid
     logical                :: shr_map_dopole     ! pole corrections in shr_map_mod
     character(SHR_KIND_CL) :: vect_map           ! vector mapping option
     character(SHR_KIND_CS) :: aoflux_grid        ! grid for atm ocn flux calc
@@ -419,6 +420,7 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
        rof_gnam              = 'undefined'
        glc_gnam              = 'undefined'
        wav_gnam              = 'undefined'
+       iac_gnam              = 'undefined'
        shr_map_dopole        = .true.
        vect_map              = 'cart3d'
        aoflux_grid           = 'ocn'
@@ -508,6 +510,7 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
        infodata%rof_gnam              = rof_gnam
        infodata%glc_gnam              = glc_gnam
        infodata%wav_gnam              = wav_gnam
+       infodata%iac_gnam              = iac_gnam
        infodata%shr_map_dopole        = shr_map_dopole
        infodata%vect_map              = vect_map
        infodata%aoflux_grid           = aoflux_grid
@@ -559,15 +562,16 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
        infodata%glclnd_present = .true.
        infodata%glcocn_present = .true.
        infodata%glcice_present = .true.
-
        infodata%atm_prognostic = .false.
        infodata%lnd_prognostic = .false.
        infodata%rof_prognostic = .false.
        infodata%ocn_prognostic = .false.
        infodata%ocnrof_prognostic = .false.
+       infodata%ocn_c2_glcshelf = .false.
        infodata%ice_prognostic = .false.
        infodata%glc_prognostic = .false.
        infodata%wav_prognostic = .false.
+       infodata%iac_prognostic = .false.
        infodata%iceberg_prognostic = .false.
        infodata%dead_comps = .false.
 
@@ -585,6 +589,8 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
        infodata%glc_ny = 0
        infodata%wav_nx = 0
        infodata%wav_ny = 0
+       infodata%iac_nx = 0
+       infodata%iac_ny = 0
 
        infodata%nextsw_cday = -1.0_SHR_KIND_R8
        infodata%precip_fact =  1.0_SHR_KIND_R8
@@ -598,6 +604,7 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
        infodata%atm_aero     = .false.
        infodata%glcrun_alarm = .false.
        infodata%glc_g2lupdate= .false.
+
        infodata%max_cplstep_time = max_cplstep_time
 
 
@@ -706,6 +713,7 @@ SUBROUTINE seq_infodata_Init( infodata, nmlfile, ID, pioid)
           infodata%ocn_present = .true.
           infodata%glc_present = .false.
           infodata%wav_present = .false.
+          infodata%iac_present = .false.
           infodata%glclnd_present = .false.
           infodata%glcocn_present = .false.
           infodata%glcice_present = .false.
@@ -975,6 +983,7 @@ SUBROUTINE seq_infodata_GetData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(rof_gnam)       ) rof_gnam       = infodata%rof_gnam
     if ( present(glc_gnam)       ) glc_gnam       = infodata%glc_gnam
     if ( present(wav_gnam)       ) wav_gnam       = infodata%wav_gnam
+    if ( present(iac_gnam)       ) iac_gnam       = infodata%iac_gnam
     if ( present(shr_map_dopole) ) shr_map_dopole = infodata%shr_map_dopole
     if ( present(vect_map)       ) vect_map       = infodata%vect_map
     if ( present(aoflux_grid)    ) aoflux_grid    = infodata%aoflux_grid
@@ -1026,6 +1035,7 @@ SUBROUTINE seq_infodata_GetData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(ocn_present)    ) ocn_present    = infodata%ocn_present
     if ( present(ocn_prognostic) ) ocn_prognostic = infodata%ocn_prognostic
     if ( present(ocnrof_prognostic) ) ocnrof_prognostic = infodata%ocnrof_prognostic
+    if ( present(ocn_c2_glcshelf) ) ocn_c2_glcshelf = infodata%ocn_c2_glcshelf
     if ( present(ice_present)    ) ice_present    = infodata%ice_present
     if ( present(ice_prognostic) ) ice_prognostic = infodata%ice_prognostic
     if ( present(iceberg_prognostic)) iceberg_prognostic = infodata%iceberg_prognostic
@@ -1036,6 +1046,7 @@ SUBROUTINE seq_infodata_GetData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(glc_prognostic) ) glc_prognostic = infodata%glc_prognostic
     if ( present(wav_present)    ) wav_present    = infodata%wav_present
     if ( present(wav_prognostic) ) wav_prognostic = infodata%wav_prognostic
+
     if ( present(atm_nx)         ) atm_nx         = infodata%atm_nx
     if ( present(atm_ny)         ) atm_ny         = infodata%atm_ny
     if ( present(lnd_nx)         ) lnd_nx         = infodata%lnd_nx
@@ -1050,6 +1061,8 @@ SUBROUTINE seq_infodata_GetData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(glc_ny)         ) glc_ny         = infodata%glc_ny
     if ( present(wav_nx)         ) wav_nx         = infodata%wav_nx
     if ( present(wav_ny)         ) wav_ny         = infodata%wav_ny
+    if ( present(iac_nx)         ) iac_nx         = infodata%iac_nx
+    if ( present(iac_ny)         ) iac_ny         = infodata%iac_ny
 
     if ( present(nextsw_cday)    ) nextsw_cday    = infodata%nextsw_cday
     if ( present(precip_fact)    ) precip_fact    = infodata%precip_fact
@@ -1261,7 +1274,6 @@ SUBROUTINE seq_infodata_PutData( infodata, case_name, case_desc, timing_dir,  &
    logical             ,optional, intent(IN) :: glc_g2lupdate ! update glc2lnd fields in lnd model
 
 !EOP
-
     !----- local -----
     character(len=*), parameter :: subname = '(seq_infodata_PutData) '
 
@@ -1312,6 +1324,7 @@ SUBROUTINE seq_infodata_PutData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(rof_gnam)       ) infodata%rof_gnam       = rof_gnam
     if ( present(glc_gnam)       ) infodata%glc_gnam       = glc_gnam
     if ( present(wav_gnam)       ) infodata%wav_gnam       = wav_gnam
+    if ( present(iac_gnam)       ) infodata%iac_gnam       = iac_gnam
     if ( present(shr_map_dopole) ) infodata%shr_map_dopole = shr_map_dopole
     if ( present(vect_map)       ) infodata%vect_map       = vect_map
     if ( present(aoflux_grid)    ) infodata%aoflux_grid    = aoflux_grid
@@ -1363,6 +1376,7 @@ SUBROUTINE seq_infodata_PutData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(ocn_present)    ) infodata%ocn_present    = ocn_present
     if ( present(ocn_prognostic) ) infodata%ocn_prognostic = ocn_prognostic
     if ( present(ocnrof_prognostic)) infodata%ocnrof_prognostic = ocnrof_prognostic
+    if ( present(ocn_c2_glcshelf)) infodata%ocn_c2_glcshelf = ocn_c2_glcshelf
     if ( present(ice_present)    ) infodata%ice_present    = ice_present
     if ( present(ice_prognostic) ) infodata%ice_prognostic = ice_prognostic
     if ( present(iceberg_prognostic)) infodata%iceberg_prognostic = iceberg_prognostic
@@ -1387,6 +1401,8 @@ SUBROUTINE seq_infodata_PutData( infodata, case_name, case_desc, timing_dir,  &
     if ( present(glc_ny)         ) infodata%glc_ny         = glc_ny
     if ( present(wav_nx)         ) infodata%wav_nx         = wav_nx
     if ( present(wav_ny)         ) infodata%wav_ny         = wav_ny
+    if ( present(iac_nx)         ) infodata%iac_nx         = iac_nx
+    if ( present(iac_ny)         ) infodata%iac_ny         = iac_ny
 
     if ( present(nextsw_cday)    ) infodata%nextsw_cday    = nextsw_cday
     if ( present(precip_fact)    ) infodata%precip_fact    = precip_fact
@@ -2175,5 +2191,4 @@ END SUBROUTINE seq_infodata_print
 
 !===============================================================================
 !===============================================================================
-
 END MODULE seq_infodata_mod

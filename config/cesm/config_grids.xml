@@ -1452,19 +1452,19 @@
     <domain name="gom3x">
       <nx>856</nx>  <ny>811</ny>
       <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.datm.txgloExt.nc</file>
-      <file grid="ocnice">$DIN_LOC_ROOT/share/domains/domain.ocn.gom3x.190709.nc</file>
+      <file grid="ocnice">$DIN_LOC_ROOT/share/domains/domain.ocn.gom3x.191014.nc</file>
       <desc>3km Gulf of Mexico for XROMS</desc>
     </domain>
 
     <domain name="txlw9k">
       <nx>285</nx>  <ny>270</ny>
-      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.txlw9k_gom3x.190709.nc</file>
+      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.txlw9k_gom3x.191014.nc</file>
       <desc>9km Gulf of Mexico for Wrf, to pair with gom3x in xRoms</desc>
     </domain>
 
     <domain name="txlw3k">
       <nx>856</nx>  <ny>811</ny>
-      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.txlw3k_gom3x.190709.nc</file>
+      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.txlw3k_gom3x.191014.nc</file>
       <desc>3km Gulf of Mexico for Wrf, to pair with gom3x in xRoms</desc>
     </domain>
 
@@ -1830,11 +1830,11 @@
 
     <!-- Regional WRF & ROMS mapping files -->
     <gridmap atm_grid="txlw3k" ocn_grid="gom3x">
-      <map name="ATM2OCN_FMAPNAME">atm/wrf/tx3k_g3x/map_a2o_aave.nc</map>
-      <map name="ATM2OCN_SMAPNAME">atm/wrf/tx3k_g3x/map_a2o_aave.nc</map>
-      <map name="ATM2OCN_VMAPNAME">atm/wrf/tx3k_g3x/map_a2o_aave.nc</map>
-      <map name="OCN2ATM_FMAPNAME">atm/wrf/tx3k_g3x/map_o2a_aave.nc</map>
-      <map name="OCN2ATM_SMAPNAME">atm/wrf/tx3k_g3x/map_o2a_aave.nc</map>
+      <map name="ATM2OCN_FMAPNAME">atm/wrf/tx3k_g3x/map_a2o_aave_Rmask_1909.nc</map>
+      <map name="ATM2OCN_SMAPNAME">atm/wrf/tx3k_g3x/map_a2o_aave_Rmask_1909.nc</map>
+      <map name="ATM2OCN_VMAPNAME">atm/wrf/tx3k_g3x/map_a2o_aave_Rmask_1909.nc</map>
+      <map name="OCN2ATM_FMAPNAME">atm/wrf/tx3k_g3x/map_o2a_aave_Rmask_1909.nc</map>
+      <map name="OCN2ATM_SMAPNAME">atm/wrf/tx3k_g3x/map_o2a_aave_Rmask_1909.nc</map>
     </gridmap>
 
     <!--  QL, 150525, wav to ocn, atm, ice mapping files  -->

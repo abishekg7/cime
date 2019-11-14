@@ -2756,6 +2756,11 @@ contains
                comp_prognostic=ocn_prognostic, comp_num=comp_num_ocn, &
                timer_barrier= 'CPL:OCNT_RUN_BARRIER', timer_comp_run='CPL:OCNT_RUN', &
                run_barriers=run_barriers, ymd=ymd, tod=tod,comp_layout=ocn_layout)
+         !for ensemble run @YL
+          if (num_inst_driver > 1) then
+             call mpi_barrier(global_comm, ierr)
+          endif
+           
        endif
 
        !----------------------------------------------------------

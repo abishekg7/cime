@@ -1204,4 +1204,25 @@ using a fortran linker.
   </SLIBS>
 </compiler>
 
+<compiler MACH="lonestar5" COMPILER="intel">
+  <CPPDEFS>
+    <append> -DHAVE_NANOTIME -DNO_R16 </append>
+  </CPPDEFS>
+  <MPIFC>mpif90</MPIFC>
+  <MPICC>mpicc</MPICC>
+  <MPICXX>mpicxx</MPICXX>
+  <SFC>ifort</SFC>
+  <SCC>icc</SCC>
+  <SCXX>icpc</SCXX>
+  <NETCDF_PATH>$ENV{TACC_NETCDF_DIR}</NETCDF_PATH>
+  <PNETCDF_PATH>$ENV{TACC_PNETCDF_DIR}</PNETCDF_PATH>
+  <SLIBS>
+    <append>-L$ENV{TACC_NETCDF_DIR}/lib -lnetcdf -lnetcdff</append>
+    <append>-L$ENV{TACC_PNETCDF_DIR}/lib -lpnetcdf</append>
+  </SLIBS>
+  <PIO_FILESYSTEM_HINTS>gpfs</PIO_FILESYSTEM_HINTS>
+  <!-- Bug in the intel/17.0.1 compiler requires this, remove this line when compiler is updated -->
+  <HAS_F2008_CONTIGUOUS>FALSE</HAS_F2008_CONTIGUOUS>
+</compiler>
+
 </config_compilers>

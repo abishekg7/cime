@@ -1480,8 +1480,9 @@ This allows using a different mpirun command to launch unit tests
     <COMPILERS>intel</COMPILERS>
     <MPILIBS>mpich</MPILIBS>
     <CIME_OUTPUT_ROOT>$ENV{SCRATCH}</CIME_OUTPUT_ROOT>
-    <DIN_LOC_ROOT>/work/02503/edwardsj/CESM/inputdata</DIN_LOC_ROOT>
-    <DIN_LOC_ROOT_CLMFORC>/work/02503/edwardsj/CESM/inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
+    <!--<CIME_OUTPUT_ROOT>/scratch/06667/liu6/RCESM_run</CIME_OUTPUT_ROOT>-->
+    <DIN_LOC_ROOT>$ENV{WORK}/RCESM/inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>$ENV{WORK}/RCESM/inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
     <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/cesm_archive/$CASE</DOUT_S_ROOT>
     <BASELINE_ROOT>/work/02503/edwardsj/CESM/cesm_baselines</BASELINE_ROOT>
     <CCSM_CPRNC>/work/02503/edwardsj/CESM/cime/tools/cprnc/cprnc</CCSM_CPRNC>
@@ -2351,9 +2352,9 @@ This allows using a different mpirun command to launch unit tests
     <MPILIBS compiler="intel" >impi,mpt,openmpi</MPILIBS>
     <MPILIBS compiler="pgi" >mpt</MPILIBS>
     <MPILIBS compiler="gnu" >openmpi</MPILIBS>
-    <CIME_OUTPUT_ROOT>/scratch/user/$USER/RCESM/RCESMrun</CIME_OUTPUT_ROOT>
-    <DIN_LOC_ROOT>$CIME_OUTPUT_ROOT/../inputdata</DIN_LOC_ROOT>
-    <DIN_LOC_ROOT_CLMFORC>>$CIME_OUTPUT_ROOT/../inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
+    <CIME_OUTPUT_ROOT>/scratch/user/$USER/RCESM/RegionalCESM-2.0.0</CIME_OUTPUT_ROOT>
+    <DIN_LOC_ROOT>$CIME_OUTPUT_ROOT/inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>>$CIME_OUTPUT_ROOT/inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
     <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
     <BASELINE_ROOT>>$CIME_OUTPUT_ROOT/inputdata/cesm_baselines</BASELINE_ROOT>
     <CCSM_CPRNC>>$CIME_OUTPUT_ROOT/zhi_rcesm_sandbox/cime/tools/cprnc</CCSM_CPRNC>

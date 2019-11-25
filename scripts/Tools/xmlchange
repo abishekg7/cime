@@ -122,7 +122,17 @@ def parse_command_line(args, description):
         expect(args.id is None, "Cannot specify both listofsettings and --id")
         expect(args.val is None, "Cannot specify both listofsettings and --val")
         delimiter = re.escape(args.delimiter)
-        listofsettings = re.split(r'(?<!\\)'+ delimiter , args.listofsettings)
+        tmplistofsettings = re.split(r'(?<!\\)'+ delimiter , args.listofsettings)
+        listofsettings = []
+        pidx=0
+        # Sometimes instead of a list of settings we have a list for one var
+        for idx,value in enumerate(tmplistofsettings):
+            if '=' in value:
+                pidx = idx
+                listofsettings.append(value)
+            else:
+                listofsettings[pidx]+=","+value
+
     else:
         expect(args.id is not None and args.val is not None,
                "Must give either (1) listofsettings or (2) both --id and --val")

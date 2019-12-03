@@ -470,7 +470,8 @@ SUBROUTINE shr_flux_atmOcn(nMax  ,zbot  ,ubot  ,vbot  ,thbot ,  prec_gust, gust_
            !--- factor for converting from bottom level (zbot) wind to 10m as
            !--- suggested by B. Large Nov 2018, basically move wind from zbot to 10m
            !--- using known stability functions at zbot and 10m and log profile
-           fac  = (rd/loc_karman) * (alz + psimh - psim10 )
+           !fac  = (rd/loc_karman) * (alz + psimh - psim10 )
+           fac  = (rd/loc_karman) * (log(zref/zbot(n)) + psimh - psim10 ) !fix the bug based on Large/Small @YL
            wRef = vmag_old *(1.0_R8+fac)
            !--- get wind vector components following taux, tauy definition above)
            u10(n) = wRef * (ubot(n)-us(n)) / vmag_old ! similar to taux & tauy

@@ -1458,7 +1458,7 @@
 
     <domain name="txlw9k">
       <nx>285</nx>  <ny>270</ny>
-      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.txlw9k_gom3x.191014.nc</file>
+      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.txlw9k_gom3x.191121.nc</file>
       <desc>9km Gulf of Mexico for Wrf, to pair with gom3x in xRoms</desc>
     </domain>
 

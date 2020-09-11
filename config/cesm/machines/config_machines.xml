@@ -2388,7 +2388,7 @@ This allows using a different mpirun command to launch unit tests
       <cmd_path lang="csh">module</cmd_path>
       <modules>
         <command name="purge"/>
-        <command name="load">python/2.7.10-intel-2015B</command>
+        <command name="load">Python/2.7.12-intel-2017A</command>
       </modules>
       <modules compiler="intel">
         <command name="load">cesm-deps/intel-2015B-pn181</command>

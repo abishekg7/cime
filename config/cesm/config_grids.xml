@@ -995,6 +995,12 @@
       <grid name="ocnice">gom3x</grid>
     </model_grid>
 
+    <model_grid alias="txlw27k_gom27k">
+      <grid name="atm">txlw27k</grid>
+      <grid name="lnd">txlw27k</grid>
+      <grid name="ocnice">gom27k</grid>
+    </model_grid>
+
   </grids>
 
   <!-- ======================================================== -->
@@ -1468,6 +1474,17 @@
       <desc>3km Gulf of Mexico for Wrf, to pair with gom3x in xRoms</desc>
     </domain>
 
+    <domain name="txlw27k">
+      <nx>89</nx>  <ny>79</ny>
+      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.atmlnd.txlw27k_gom27k.210706.nc</file>
+      <desc>27km Gulf of Mexico for Wrf, to pair with gom27k in xRoms</desc>
+    </domain>
+    <domain name="gom27k">
+      <nx>273</nx>  <ny>242</ny>
+      <file grid="ocnice">$DIN_LOC_ROOT/share/domains/gom_lr_docn_grd.210705.nc</file>
+      <desc>27km Gulf of Mexico grid for xRoms</desc>
+    </domain>
+
     <!-- GLC domain -->
 
     <domain name="gland20">
@@ -1837,6 +1854,13 @@
       <map name="OCN2ATM_SMAPNAME">atm/wrf/tx3k_g3x/map_o2a_aave_Rmask_1909.nc</map>
     </gridmap>
 
+    <gridmap atm_grid="txlw27k" ocn_grid="gom27k">
+      <map name="ATM2OCN_FMAPNAME">atm/wrf/tx27k_g27x/map_a2o_aave.nc</map>
+      <map name="ATM2OCN_SMAPNAME">atm/wrf/tx27k_g27x/map_a2o_aave.nc</map>
+      <map name="ATM2OCN_VMAPNAME">atm/wrf/tx27k_g27x/map_a2o_aave.nc</map>
+      <map name="OCN2ATM_FMAPNAME">atm/wrf/tx27k_g27x/map_o2a_aave.nc</map>
+      <map name="OCN2ATM_SMAPNAME">atm/wrf/tx27k_g27x/map_o2a_aave.nc</map>
+    </gridmap>
     <!--  QL, 150525, wav to ocn, atm, ice mapping files  -->
 
     <gridmap ocn_grid="gx3v7" wav_grid="ww3a">

@@ -2344,6 +2344,69 @@ This allows using a different mpirun command to launch unit tests
     </module_system>
   </machine>
 
+
+<machine MACH="grace">
+    <DESC>Intel Xeon 6248R 3.0 GHz ("Cascade Lake"),48 cores on two sockets (24 cores/socket) , batch system is SLURM</DESC>
+    <NODENAME_REGEX>.*grace</NODENAME_REGEX>
+    <OS>LINUX</OS>
+    <COMPILERS>intel</COMPILERS>
+    <MPILIBS>impi</MPILIBS>
+    <!--<CIME_OUTPUT_ROOT>$ENV{SCRATCH}</CIME_OUTPUT_ROOT>-->
+    <CIME_OUTPUT_ROOT>/ihesp/shared/rundir/rcesm</CIME_OUTPUT_ROOT>
+    <DIN_LOC_ROOT>/ihesp/obs_root/inputdata</DIN_LOC_ROOT>
+    <DIN_LOC_ROOT_CLMFORC>/ihesp/obs_root/inputdata/lmwg</DIN_LOC_ROOT_CLMFORC>
+    <DOUT_S_ROOT>$ENV{SCRATCH}/archive/$CASE</DOUT_S_ROOT>
+    <BASELINE_ROOT>/ihesp/obs_root/inputdata/cesm_baselines</BASELINE_ROOT>
+    <CCSM_CPRNC>/ihesp/software/cesm/cime/tools/cprnc/cprnc</CCSM_CPRNC>
+    <GMAKE_J>4</GMAKE_J>
+    <BATCH_SYSTEM>slurm</BATCH_SYSTEM>
+    <SUPPORTED_BY>agopal</SUPPORTED_BY>
+    <MAX_TASKS_PER_NODE>96</MAX_TASKS_PER_NODE>
+    <MAX_MPITASKS_PER_NODE>48</MAX_MPITASKS_PER_NODE>
+    <mpirun mpilib="impi">
+      <executable>mpirun</executable>
+      <arguments>
+         <arg name="num_tasks"> -np $TOTALPES</arg>
+      </arguments>
+    </mpirun>
+    <module_system type="module">
+      <init_path lang="perl">/sw/lmod/lmod/init/perl</init_path>
+      <init_path lang="python">/sw/lmod/lmod/init/env_modules_python.py</init_path>
+      <init_path lang="sh">/sw/lmod/lmod/init/sh</init_path>
+      <init_path lang="csh">/sw/lmod/lmod/init/csh</init_path>
+      <cmd_path lang="perl">/sw/lmod/lmod/libexec/lmod perl</cmd_path>
+      <cmd_path lang="python">/sw/lmod/lmod/libexec/lmod python</cmd_path>
+      <cmd_path lang="sh">module</cmd_path>
+      <cmd_path lang="csh">module</cmd_path>
+      <modules>
+        <command name="purge"></command>
+        <command name="unuse">/sw/eb/mods/all/MPI/intel/2019.5.281/impi/2018.5.288:/sw/eb/mods/all/Compiler/intel/2019.5.281:/sw/eb/mods/all/Compiler/GCCcore/8.3.0:/sw/hprc/mods/all/Core:/sw/eb/mods/all/Core:/sw/lmod/hprc/mods/Linux:/sw/lmod/8.4.3/modulefiles/Core</command>
+        <command name="use">/scratch/group/ihesp/software/easybuild/eb/x86_64/mods/all/Core</command>
+        <command name="load">intel/2019b</command>
+        <command name="load">CMake/3.15.3</command>
+        <command name="load">cURL/7.66.0</command>
+        <command name="load">Python/2.7.16</command>
+        <command name="load">XML-LibXML/2.0201</command>
+        <command name="load">PnetCDF/1.12.1</command>
+        <command name="load">netCDF/4.7.4</command>
+        <command name="load">netCDF-Fortran/4.5.3</command>
+      </modules>
+   </module_system>
+    <environment_variables>
+      <env name="OMP_STACKSIZE">256M</env>
+    <!--  <env name="I_MPI_PMI_LIBRARY">/usr/lib64/libpmi.so</env> -->
+      <env name="I_MPI_FABRICS">shm:ofi</env>
+      <!--<env name="I_MPI_DEBUG">4</env>-->
+    </environment_variables>
+    <environment_variables>
+      <env name="NETCDF_PATH">/scratch/group/ihesp/software/easybuild/eb/x86_64/sw/netCDF/4.7.4-iimpi-2019b</env>
+      <env name="PNETCDF_PATH">/scratch/group/ihesp/software/easybuild/eb/x86_64/sw/PnetCDF/1.12.1-iimpi-2019b</env>
+      <env name="NETCDFF_INCDIR">/scratch/group/ihesp/software/easybuild/eb/x86_64/sw/netCDF-Fortran/4.5.3-iimpi-2019b/include</env>
+    </environment_variables>
+
+  </machine>
+
+
   <machine MACH="ada">
     <DESC>TAMU IBM NextScale Cluster, os is Linux, 20 pes/node, batch system is LSF</DESC>
     <NODENAME_REGEX>.*.ada.tamu.edu</NODENAME_REGEX>
@@ -2388,7 +2451,7 @@ This allows using a different mpirun command to launch unit tests
       <cmd_path lang="csh">module</cmd_path>
       <modules>
         <command name="purge"/>
-        <command name="load">python/2.7.10-intel-2015B</command>
+        <command name="load">Python/2.7.12-intel-2017A</command>
       </modules>
       <modules compiler="intel">
         <command name="load">cesm-deps/intel-2015B-pn181</command>
